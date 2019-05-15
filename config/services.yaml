@@ -25,3 +25,21 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+
+    App\GraphQL\Loader\:
+        resource: '../src/GraphQL/Loader'
+        tags: ['app.graphql.loader']
+
+    App\GraphQL\Resolver\:
+        resource: '../src/GraphQL/Resolver'
+
+
+    Overblog\DataLoader\Promise\Adapter\Webonyx\GraphQL\SyncPromiseAdapter: ~
+
+    app.syncpromiseadapter:
+        alias: Overblog\DataLoader\Promise\Adapter\Webonyx\GraphQL\SyncPromiseAdapter
+        public: true
+
+    Overblog\PromiseAdapter\Adapter\WebonyxGraphQLSyncPromiseAdapter:
+        arguments:
+            - '@Overblog\DataLoader\Promise\Adapter\Webonyx\GraphQL\SyncPromiseAdapter'

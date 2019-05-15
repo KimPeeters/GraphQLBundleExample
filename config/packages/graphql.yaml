@@ -1,0 +1,13 @@
+overblog_graphql:
+    definitions:
+        schema:
+            query: Query
+        mappings:
+            auto_discover: false
+            types:
+                -
+                    type: yml
+                    dir: "%kernel.project_dir%/config/graphql/types"
+                    suffix: ~
+    services:
+        promise_adapter: "app.syncpromiseadapter"

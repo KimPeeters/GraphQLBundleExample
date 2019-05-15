@@ -1,0 +1,44 @@
+Query:
+  type: object
+  config:
+    description: "Test 1"
+    fields:
+      getAllPersons:
+          type: "[Person]"
+          description: 'List all persons in database'
+          resolve: '@=resolver("App\\GraphQL\\Resolver\\PersonResolver::all")'
+      getPerson:
+        type: "Person"
+        args:
+          id:
+            type: "Int!"
+        resolve: '@=resolver("App\\GraphQL\\Resolver\\PersonResolver::get", [args["id"]])'
+      searchPerson:
+        type: "[Person]"
+        args:
+          search:
+            type: "String!"
+        resolve: '@=resolver("App\\GraphQL\\Resolver\\PersonResolver::search", [args["search"]])'
+
+Person:
+  type: object
+  config:
+    description: "Person"
+    fields:
+      id:
+        type: "Int!"
+      name:
+        type: "String!"
+      titles:
+        type: "[Title!]!"
+        resolve: '@=resolver("App\\GraphQL\\Resolver\\TitleResolver::findByPerson", [value["id"]])'
+
+Title:
+  type: object
+  config:
+    description: "Title"
+    fields:
+      id:
+        type: "Int!"
+      name:
+        type: "String!"
